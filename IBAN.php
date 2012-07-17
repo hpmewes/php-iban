@@ -29,7 +29,7 @@ class IBAN {
      * 
      * @return string
      */
-    protected function generate($bankCode = '', $bankAccountNr = '', $locale = '') {
+    public function generate($bankCode = '', $bankAccountNr = '', $locale = '') {
         if(empty($locale)) $locale = $this->locale;
         if(empty($bankCode)) $bankCode = $this->bankCode;
         if(empty($bankAccountNr)) $bankAccountNr = $this->bankAccountNr;
@@ -51,7 +51,7 @@ class IBAN {
     * 
     * @return string 
     */
-    protected function getCheckcipher($checksum = '') {
+    public function getCheckcipher($checksum = '') {
         return str_pad($checksum % 97 - 10, 2, "0", STR_PAD_LEFT);
     }
 
@@ -64,7 +64,7 @@ class IBAN {
     * 
     * @return string 
     */
-    protected function getChecksum($bankCode = '', $bankAccountNr = '', $locale = '') {
+    public function getChecksum($bankCode = '', $bankAccountNr = '', $locale = '') {
         if(empty($locale)) $locale = $this->locale;
         if(empty($bankCode)) $bankCode = $this->bankCode;
         if(empty($bankAccountNr)) $bankAccountNr = $this->bankAccountNr;
@@ -80,7 +80,7 @@ class IBAN {
     * 
     * @return string 
     */
-    protected function getBBAN($bankCode = '', $bankAccountNr = '') {
+    public function getBBAN($bankCode = '', $bankAccountNr = '') {
         if(empty($bankCode)) $bankCode = $this->bankCode;
         if(empty($bankAccountNr)) $bankAccountNr = $this->bankAccountNr;
         
@@ -100,7 +100,7 @@ class IBAN {
     * 
     * @return string 
     */
-    protected function getNumericLanguageCode($locale = '') {
+    public function getNumericLanguageCode($locale = '') {
         if(empty($locale)) $locale = $this->locale;
         
         $alphabet = array(
