@@ -1,7 +1,5 @@
 <?php
-namespace Scs\IBAN;
-
-class IBAN {
+class IBANGenerator {
 
     protected $bankCode;
     protected $locale = 'DE';
@@ -52,7 +50,7 @@ class IBAN {
     * @return string 
     */
     public function getCheckcipher($checksum = '') {
-        return str_pad($checksum % 97 - 10, 2, "0", STR_PAD_LEFT);
+        return str_pad(98 - bcmod($checksum, 97), 2, "0", STR_PAD_LEFT);
     }
 
     /**
@@ -68,7 +66,7 @@ class IBAN {
         if(empty($locale)) $locale = $this->locale;
         if(empty($bankCode)) $bankCode = $this->bankCode;
         if(empty($bankAccountNr)) $bankAccountNr = $this->bankAccountNr;
-        
+
         return $this->getBBAN($bankCode, $bankAccountNr).$this->getNumericLanguageCode($locale);
     }
 
@@ -84,7 +82,7 @@ class IBAN {
         if(empty($bankCode)) $bankCode = $this->bankCode;
         if(empty($bankAccountNr)) $bankAccountNr = $this->bankAccountNr;
         
-        return $bankCode.$bankAccountNr;
+        return $bankCode.str_pad($bankAccountNr, 10, "0", STR_PAD_LEFT);
     }
 
     /**
@@ -109,7 +107,7 @@ class IBAN {
             16 => 'P', 17 => 'Q', 18 => 'R', 19 => 'S', 20 => 'T', 21 => 'U', 22 => 'V',
             23 => 'W', 24 => 'X', 25 => 'Y', 26 => 'Z'
         );
-        $numericLanguageCode = "00";
+        $numericLanguageCode = "";
 
         // step over each char from language code
         foreach(str_split($locale) as $char) {
@@ -117,7 +115,7 @@ class IBAN {
             $numericLanguageCode .= array_search($char, $alphabet) + 9;
         }
 
-        return $numericLanguageCode;
+        return $numericLanguageCode."00";
     }
     
 }
