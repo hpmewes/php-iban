@@ -26,3 +26,7 @@ Todo
 Use of Regex for check
 
     ([A-Z]{2})([0-9]{2})([0-9]{8})([0-9]{10}) // Example for Germany DE581234567812345678910
+    
+License
+-------
+GNU General Public License
